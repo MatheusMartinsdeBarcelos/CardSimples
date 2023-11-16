@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caixa de Presente com Laço</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #giftBox {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-color: #e74c3c;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        #giftBox:hover {
+            transform: scale(1.05);
+        }
+
+        #lid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background-color: #c0392b;
+            border-radius: 15px 15px 0 0;
+            transform-origin: bottom;
+            transition: transform 0.3s ease;
+        }
+
+        #boxContent {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e74c3c;
+            border-radius: 0 0 15px 15px;
+            overflow: auto;
+            text-align: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        #boxContent img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        #ribbon {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            width: 100px;
+            height: 20px;
+            background-color: #c0392b;
+            border-radius: 10px;
+            transform: translateX(-50%);
+        }
+
+        #bow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 20px 15px 0;
+            border-color: #c0392b transparent transparent transparent;
+            transform: translateX(-50%);
+        }
+
+        #outsideImages {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        #outsideImages img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="giftBox">
+        <div id="lid"></div>
+        <div id="boxContent">
+            <p>Feliz Aniversário, Filipe!</p>
+            <img src="imagem1.png" alt="Imagem 1">
+            <img src="imagem2.png" alt="Imagem 2">
+            <img src="imagem3.png" alt="Imagem 3">
+            <!-- Adicione mais imagens conforme necessário -->
+        </div>
+        <div id="ribbon"></div>
+        <div id="bow"></div>
+    </div>
+
+    <audio id="audio" src="audio.mp3"></audio>
+
+    <div id="outsideImages">
+        <img src="src/Gifs_de_Feliz_Aniversario.gif" alt="GIF 1" onclick="playGif('Gifs_de_Feliz_Aniversario.gif')">
+        <img src="src/Caveira_Da_Capoeira_Break_Dance_Skeleton.gif" alt="GIF 2" onclick="playGif('Caveira_Da_Capoeira_Break_Dance_Skeleton.gif')">
+        <img src="src/transferir.gif" alt="GIF 3" onclick="playGif('transferir.gif')">
+    </div>
+
+    <script>
+        const giftBox = document.getElementById('giftBox');
+        const lid = document.getElementById('lid');
+        const boxContent = document.getElementById('boxContent');
+        const audio = document.getElementById('audio');
+
+        function playGif(gifSrc) {
+            const gifImage = new Image();
+            gifImage.src = gifSrc;
+            gifImage.alt = "GIF";
+            gifImage.style.width = "100%";
+            gifImage.style.height = "auto";
+
+            boxContent.innerHTML = ''; // Limpa o conteúdo anterior
+            boxContent.appendChild(gifImage);
+
+            // Inicia a reprodução do áudio quando uma imagem fora da caixa é clicada
+            audio.play();
+        }
+
+        giftBox.addEventListener('click', () => {
+            lid.style.transform = 'rotateX(90deg)';
+            setTimeout(() => {
+                lid.style.display = 'none';
+                boxContent.style.display = 'block';
+                audio.play(); // Inicia a reprodução do áudio quando a caixa é aberta
+            }, 300);
+        });
+    </script>
+</body>
+</html>
